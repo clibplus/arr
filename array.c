@@ -8,6 +8,7 @@ Array NewArray(const void **arr) {
 	Array a = { 
 		.idx = 0,
 
+		.InArray	= IsInArray,
 		.Get 		= GetElement,
 		.Append 	= Array__Append,
 		.Remove 	= Array__Remove,
@@ -27,6 +28,14 @@ Array NewArray(const void **arr) {
 
 	a.arr[a.idx] = NULL;
 	return a;
+}
+
+int IsInArray(Array *a, void *sub) {
+	for(int i = 0; i < a->idx; i++)
+		if(memcmp(a->arr[i], sub, sizeof(void *)))
+			return i;
+
+	return 0;
 }
 
 void *GetElement(Array *a, int idx) {

@@ -4,6 +4,7 @@ typedef struct Array {
 	void 		**arr;
 	long		idx;
 
+	int			(*InArray)	(struct Array *a, void *sub);
 	void		*(*Get)		(struct Array *a, int idx);
 	int			(*Append)	(struct Array *a, void *element);
 	int 		(*Remove)	(struct Array *a, int idx);
@@ -15,6 +16,12 @@ typedef struct Array {
 //			| - > Returns the struct with the array provided or a new array
 //
 Array 		NewArray(const void **arr);
+
+//
+//			| - > Check if an element in the array matches the provided data
+//			| - > Returns 1 upon success or 0 upon failure
+//
+int 		IsInArray(Array *a, void *sub);
 
 //
 //			| - > Get an element from the array with the position provided
