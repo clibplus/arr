@@ -1,14 +1,42 @@
+/*
+*
+	Use Example:
+
+	void debug_arr(Array *a) {
+		for(int i = 0; i < a->idx; i++)
+			printf("[%d] %s\n", i, (char *)a->arr[i]);
+	}
+
+	int main(int argc, char *argv[]) {
+		Array args = NewArray(NULL);
+
+		int chk = args.Append(&args, (void *)strdup("GAY"));
+		chk = args.Append(&args, (void *)strdup("SEX"));
+		chk = args.Append(&args, (void *)strdup("NIG"));
+		printf("%ld\n", args.idx);
+		debug_arr(&args);
+
+		printf("\n\n");
+		chk = args.Remove(&args, 1);
+		debug_arr(&args);
+
+		printf("%d\n", args.IsCharInArray(&args, "NIG"));
+		return 0;
+	}
+
+*/
 #pragma once
 
 typedef struct Array {
 	void 		**arr;
 	long		idx;
 
-	int			(*InArray)	(struct Array *a, void *sub);
-	void		*(*Get)		(struct Array *a, int idx);
-	int			(*Append)	(struct Array *a, void *element);
-	int 		(*Remove)	(struct Array *a, int idx);
-	void		(*Destruct)	(struct Array *a);
+	int			(*IsCharInArray)	(struct Array *a, void *sub);
+	int			(*IsIntInArray)		(struct Array *a, void *sub);
+	void		*(*Get)				(struct Array *a, int idx);
+	int			(*Append)			(struct Array *a, void *element);
+	int 		(*Remove)			(struct Array *a, int idx);
+	void		(*Destruct)			(struct Array *a);
 } Array;
 
 //
@@ -18,10 +46,16 @@ typedef struct Array {
 Array 		NewArray(const void **arr);
 
 //
-//			| - > Check if an element in the array matches the provided data
+//			| - > Check if an element in the array matches the char pointer provided 
 //			| - > Returns 1 upon success or 0 upon failure
 //
-int 		IsInArray(Array *a, void *sub);
+int 		IsCharInArray(Array *a, void *sub);
+
+//
+//			| - > Check if an element in the array matches the int pointer provided 
+//			| - > Returns 1 upon success or 0 upon failure
+//
+int 		IsIntInArray(Array *a, void *sub);
 
 //
 //			| - > Get an element from the array with the position provided

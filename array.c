@@ -8,11 +8,12 @@ Array NewArray(const void **arr) {
 	Array a = { 
 		.idx = 0,
 
-		.InArray	= IsInArray,
-		.Get 		= GetElement,
-		.Append 	= Array__Append,
-		.Remove 	= Array__Remove,
-		.Destruct	= DestructArray
+		.IsCharInArray	= IsCharInArray,
+		.IsIntInArray	= IsIntInArray,
+		.Get 			= GetElement,
+		.Append 		= Array__Append,
+		.Remove 		= Array__Remove,
+		.Destruct		= DestructArray
 	};
 
 	if(!arr) {
@@ -30,12 +31,21 @@ Array NewArray(const void **arr) {
 	return a;
 }
 
-int IsInArray(Array *a, void *sub) {
+int IsCharInArray(Array *a, void *sub) {
 	for(int i = 0; i < a->idx; i++)
-		if(memcmp(a->arr[i], sub, sizeof(void *)))
+		if(!strcmp(a->arr[i], sub))
 			return i;
 
-	return 0;
+	return -1;
+}
+
+int IsIntInArray(Array *a, void *sub) {
+	for(int i = 0; i < a->idx; i++) {
+		if(*(int *)a->arr[i] == *(int *)sub)
+			return i;
+	}
+
+	return -1;
 }
 
 void *GetElement(Array *a, int idx) {
