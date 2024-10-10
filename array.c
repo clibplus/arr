@@ -40,7 +40,7 @@ void *GetElement(Array *a, int idx) {
 }
 
 int Array__Append(Array *a, void *element) {
-	if(!a || a->arr || !element)
+	if(!a || !a->arr || !element)
 		return 0;
 
 	a->arr[a->idx] = element;

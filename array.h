@@ -4,10 +4,10 @@ typedef struct Array {
 	void 		**arr;
 	long		idx;
 
-	void		*(*Get)		(Array *a, int idx);
-	int			(*Append)	(Array *a, void *element);
-	int 		(*Remove)	(Array *a, int idx);
-	void		(*Destruct)	(Array *a);
+	void		*(*Get)		(struct Array *a, int idx);
+	int			(*Append)	(struct Array *a, void *element);
+	int 		(*Remove)	(struct Array *a, int idx);
+	void		(*Destruct)	(struct Array *a);
 } Array;
 
 //
