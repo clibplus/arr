@@ -5,14 +5,20 @@
 #include "array.h"
 
 Array NewArray(const void **arr) {
+	Array a = { 
+		.idx = 0,
+
+		.Get 		= GetElement,
+		.Append 	= Array__Append,
+		.Remove 	= Array__Remove,
+		.Destruct	= DestructArray
+	};
+
 	if(!arr) {
-		return (Array){
-			.arr = (void **)malloc(sizeof(void *) * 1),
-			.idx = 0
-		};
+		a.arr = (void **)malloc(sizeof(void *) * 1);
+		return a;
 	}
 
-	Array a = { .idx = 0 };
 	while(arr[a.idx] != NULL) {
 		a.arr[a.idx] = (void *)arr[a.idx];
 		a.idx++;
