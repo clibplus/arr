@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "array.h"
+#include "arr.h"
 
 Array NewArray(const void **arr) {
 	Array a = { 
