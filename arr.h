@@ -34,6 +34,7 @@ typedef struct Array {
 	int			(*IsCharInArray)	(struct Array *a, void *sub);
 	int			(*IsIntInArray)		(struct Array *a, void *sub);
 	void		*(*Get)				(struct Array *a, int idx);
+	int			(*Merge)			(struct Array *a, void *arr);
 	int			(*Append)			(struct Array *a, void *element);
 	int 		(*Remove)			(struct Array *a, int idx);
 	void		(*Destruct)			(struct Array *a);
@@ -62,6 +63,11 @@ int 		IsIntInArray(Array *a, void *sub);
 //			| - > Returns the element upon success or NULL upon failure
 //
 void 		*GetElement(Array *a, int idx);
+//
+//			| - > Merge an array to the current array
+//			| - > Returns 1 on success, 0 on failure
+//
+int 		Array_Merge(Array *a, void **arr);
 
 //
 //			| - > Append an element to the array

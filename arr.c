@@ -58,6 +58,17 @@ void *GetElement(Array *a, int idx) {
 	return a->arr[idx];
 }
 
+int Array_Merge(Array *a, void **arr) {
+	if(!a)
+		return 0;
+
+	int i = 0;
+	while(!arr[i])
+		Array__Append(a, arr[i]);
+
+	return 1;
+}
+
 int Array__Append(Array *a, void *element) {
 	if(!a || !a->arr || !element)
 		return 0;
