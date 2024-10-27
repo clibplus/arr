@@ -34,7 +34,7 @@ typedef struct Array {
 	int			(*IsCharInArray)	(struct Array *a, void *sub);
 	int			(*IsIntInArray)		(struct Array *a, void *sub);
 	void		*(*Get)				(struct Array *a, int idx);
-	int			(*Merge)			(struct Array *a, void *arr);
+	int			(*Merge)			(struct Array *a, void **arr);
 	int			(*Append)			(struct Array *a, void *element);
 	int 		(*Remove)			(struct Array *a, int idx);
 	void		(*Destruct)			(struct Array *a);

@@ -11,6 +11,7 @@ Array NewArray(const void **arr) {
 		.IsCharInArray	= IsCharInArray,
 		.IsIntInArray	= IsIntInArray,
 		.Get 			= GetElement,
+		.Merge 			= Array_Merge,
 		.Append 		= Array__Append,
 		.Remove 		= Array__Remove,
 		.Destruct		= DestructArray
