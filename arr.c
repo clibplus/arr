@@ -64,8 +64,10 @@ int Array_Merge(Array *a, void **arr) {
 		return 0;
 
 	int i = 0;
-	while(!arr[i])
+	while(!arr[i]) {
 		Array__Append(a, arr[i]);
+		i++;
+	}
 
 	return 1;
 }
