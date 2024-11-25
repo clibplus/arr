@@ -27,10 +27,18 @@
 */
 #pragma once
 
+#define LENGTH 43
+
+typedef struct sArr {
+	void 		*arr[LENGTH];
+	long 		idx;
+} sArr;
+
 typedef struct Array {
 	void 		**arr;
 	long		idx;
 
+	int 		(*Clear)			(struct Array *a);
 	int			(*IsCharInArray)	(struct Array *a, void *sub);
 	int			(*IsIntInArray)		(struct Array *a, void *sub);
 	void		*(*Get)				(struct Array *a, int idx);
@@ -45,6 +53,12 @@ typedef struct Array {
 //			| - > Returns the struct with the array provided or a new array
 //
 Array 		NewArray(const void **arr);
+
+//
+//			| - > Clear the array buffer
+//			| - > Returns 1 upon success or 0 upon failure
+//
+int 		ArrClear(Array *a);
 
 //
 //			| - > Check if an element in the array matches the char pointer provided 
