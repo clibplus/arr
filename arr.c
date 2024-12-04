@@ -39,7 +39,7 @@ sArr NewStackArray(void **arr) {
 	if(i == 1 && arr[0] == NULL)
 		return ((sArr){ .idx = 0 });
 
-	a->idx = i;
+	a.idx = i;
 
 	return a;
 }
@@ -66,7 +66,7 @@ int ArrClear(Array *a) {
 
 	free(a->arr);
 
-	a->arr = (void **)malloc(sizeof(void *) * 1));
+	a->arr = (void **)malloc(sizeof(void *) * 1);
 	a->idx = 0;
 
 	return 1;
