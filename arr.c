@@ -26,28 +26,10 @@ Array NewArray(const void **arr) {
 	return a;
 }
 
-sArr NewStackArray(void **arr) {
-	if(!arr)
-		return ((sArr){ .idx = 0 });
-
-	sArr a = { .arr = arr };
-	ConstructArrayMethods(&a);
-
-	int i = 0;
-	while(arr[i] != NULL) i++;
-
-	if(i == 1 && arr[0] == NULL)
-		return ((sArr){ .idx = 0 });
-
-	a.idx = i;
-
-	return a;
-}
-
 void ConstructArrayMethods(Array *a) {
 	a->Clear 			= ArrClear;
-	a->IsCharInArray	= IsCharInArray;
-	a->IsIntInArray		= IsIntInArray;
+	a->Is				= IsCharInArray;
+	a->IsInt			= IsIntInArray;
 	a->Get 				= GetElement;
 	a->Merge 			= Array_Merge;
 	a->Append 			= Array__Append;

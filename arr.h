@@ -27,20 +27,18 @@
 */
 #pragma once
 
-#define LENGTH 43
-
-typedef struct sArr {
-	void 		*arr[LENGTH];
-	long 		idx;
-} sArr;
-
 typedef struct Array {
 	void 		**arr;
 	long		idx;
 
 	int 		(*Clear)			(struct Array *a);
-	int			(*IsCharInArray)	(struct Array *a, void *sub);
-	int			(*IsIntInArray)		(struct Array *a, void *sub);
+	int			(*Is)				(struct Array *a, void *sub);
+	int 		(*Push) 			(struct Array *a, void *v);
+	int 		(*Pop)				(struct Array *a);
+	int 		(*IndexOf)			(struct Array *a, void *p);
+	int 		(*Sort)				(struct Array *a);
+	int 		(*Reverse)			(struct Array *a);
+
 	void		*(*Get)				(struct Array *a, int idx);
 	int			(*Merge)			(struct Array *a, void **arr);
 	int			(*Append)			(struct Array *a, void *element);
