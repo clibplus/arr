@@ -33,6 +33,7 @@ typedef struct Array {
 
 	int 		(*Clear)			(struct Array *a);
 	int			(*Is)				(struct Array *a, void *sub);
+	int			(*IsInt)			(struct Array *a, void *num);
 	int 		(*Push) 			(struct Array *a, void *v);
 	int 		(*Pop)				(struct Array *a);
 	int 		(*IndexOf)			(struct Array *a, void *p);
