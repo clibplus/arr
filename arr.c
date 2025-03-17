@@ -6,22 +6,20 @@
 
 Array NewArray(const void **arr) {
 	Array a = { 
+		.arr = (void **)malloc(sizeof(void *) * 1),
 		.idx = 0,
 	};
 
 	ConstructArrayMethods(&a);
 
-	if(!arr) {
-		a.arr = (void **)malloc(sizeof(void *) * 1);
+	if(!arr) 
 		return a;
-	}
 
-	while(arr[a.idx] != NULL) {
-		a.arr[a.idx] = (void *)arr[a.idx];
+	free(a.arr);
+	a.arr = (void **)arr;
+	while(arr[a.idx] != NULL)
 		a.idx++;
-		a.arr = (void **)realloc(a.arr, sizeof(void *) * (a.idx + 1));
-	}
-
+	
 	a.arr[a.idx] = NULL;
 	return a;
 }
@@ -34,6 +32,7 @@ void ConstructArrayMethods(Array *a) {
 	a->Merge 			= Array_Merge;
 	a->Append 			= Array__Append;
 	a->Remove 			= Array__Remove;
+	a->Join 			= Array__Join;
 	a->Destruct			= DestructArray;
 }
 
@@ -128,6 +127,26 @@ int Array__Remove(Array *a, int idx) {
 	return 1;
 }
 
+char *Array__Join(Array *a, char *delim) {
+	char *buff = (char *)malloc(1);
+	memset(buff, '\0', 1);
+	int idx = 0;
+
+	for(int i = 0; i < a->idx; i++) {
+		if(!a->arr[i])
+			break;
+
+		idx += strlen((char *)a->arr[i]) + strlen(delim);
+		buff = (char *)realloc(buff, idx + 1);
+		strncat(buff, (char *)a->arr[i], strlen(a->arr[i]));
+		strncat(buff, delim, strlen(delim) - 1);
+
+		a->arr[idx] = '\0';
+	}
+
+	return buff;
+}
+
 void DestructArray(Array *a) {
 	if(a->arr) {
 		for(int i = 0; i < a->idx; i++) {
@@ -136,5 +155,7 @@ void DestructArray(Array *a) {
 				a->arr[i] = NULL;
 			}
 		}
+
+		free(a->arr);
 	}
 }

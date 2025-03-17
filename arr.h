@@ -44,6 +44,7 @@ typedef struct Array {
 	int			(*Merge)			(struct Array *a, void **arr);
 	int			(*Append)			(struct Array *a, void *element);
 	int 		(*Remove)			(struct Array *a, int idx);
+	char		*(*Join)			(struct Array *a, char *delim);
 	void		(*Destruct)			(struct Array *a);
 } Array;
 
@@ -95,6 +96,14 @@ int 		Array__Append(Array *a, void *element);
 int 		Array__Remove(Array *a, int idx);
 
 //
+//
+//
+//
+char 		*Array__Join(Array *a, char *delim);
+
+//
 //			| -> Destroy the array
 //
 void 		DestructArray(Array *a);
+
+void ConstructArrayMethods(Array *a);
