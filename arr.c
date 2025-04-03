@@ -28,6 +28,7 @@ void ConstructArrayMethods(Array *a) {
 	a->Clear 			= ArrClear;
 	a->Is				= IsCharInArray;
 	a->IsInt			= IsIntInArray;
+	a->Insert			= Array__Insert;
 	a->Get 				= GetElement;
 	a->Merge 			= Array_Merge;
 	a->Append 			= Array__Append;
@@ -70,8 +71,9 @@ int IsIntInArray(Array *a, void *sub) {
 	return -1;
 }
 
+
 void *GetElement(Array *a, int idx) {
-	if(!a || !a->arr)
+	if(!a || !a->arr || idx <= 0)
 		return NULL;
 
 	if(idx >= a->idx)
@@ -100,6 +102,36 @@ int Array__Append(Array *a, void *element) {
 	a->arr[a->idx] = element;
 	a->idx++;
 	a->arr = (void **)realloc(a->arr, sizeof(void *) * (a->idx + 1));
+	return 1;
+}
+
+int Array__Insert(Array *a, int pos, void *p) {
+	if(!a || pos < 1 || !p)
+		return 0;
+
+	void **arr = (void **)malloc(sizeof(void *) * 1);
+	int idx = 0;
+
+	for(int i = 0; i < a->idx; i++) {
+		arr[idx] = a->arr[i];
+		idx++;
+		arr = (void **)realloc(arr, sizeof(void *) * (idx + 1));
+
+		if(i == pos)
+		{
+			arr[idx] = p;
+			idx++;
+			arr = (void **)realloc(arr, sizeof(void *) * (idx + 1));
+		}
+		arr[idx] = NULL;
+	}
+
+	if(a->arr)
+		free(a->arr);
+
+	a->arr = arr;
+	a->idx = idx;
+
 	return 1;
 }
 
@@ -139,7 +171,8 @@ char *Array__Join(Array *a, char *delim) {
 		idx += strlen((char *)a->arr[i]) + strlen(delim);
 		buff = (char *)realloc(buff, idx + 1);
 		strncat(buff, (char *)a->arr[i], strlen(a->arr[i]));
-		strncat(buff, delim, strlen(delim) - 1);
+		if(i != a->idx - 1)
+			strcat(buff, delim);
 
 		a->arr[idx] = '\0';
 	}
@@ -147,15 +180,15 @@ char *Array__Join(Array *a, char *delim) {
 	return buff;
 }
 
-void DestructArray(Array *a) {
-	if(a->arr) {
+void DestructArray(Array *a, int elements, int arr) {
+	if(a->arr && elements) {
 		for(int i = 0; i < a->idx; i++) {
 			if(a->arr[i]) {
 				free(a->arr[i]);
 				a->arr[i] = NULL;
 			}
 		}
-
-		free(a->arr);
 	}
+
+	if(arr) free(a->arr);
 }

@@ -39,13 +39,14 @@ typedef struct Array {
 	int 		(*IndexOf)			(struct Array *a, void *p);
 	int 		(*Sort)				(struct Array *a);
 	int 		(*Reverse)			(struct Array *a);
+	int 		(*Insert)			(struct Array *a, int pos, void *p);
 
 	void		*(*Get)				(struct Array *a, int idx);
 	int			(*Merge)			(struct Array *a, void **arr);
 	int			(*Append)			(struct Array *a, void *element);
 	int 		(*Remove)			(struct Array *a, int idx);
 	char		*(*Join)			(struct Array *a, char *delim);
-	void		(*Destruct)			(struct Array *a);
+	void		(*Destruct)			(struct Array *a, int elements, int arr);
 } Array;
 
 //
@@ -90,6 +91,12 @@ int 		Array_Merge(Array *a, void **arr);
 int 		Array__Append(Array *a, void *element);
 
 //
+//
+//
+//
+int 		Array__Insert(Array *a, int pos, void *p);
+
+//
 //			| - > Remove an element from array with position provided
 //			| - > Returns 1 upon success or 0 upon failure
 //
@@ -104,6 +111,6 @@ char 		*Array__Join(Array *a, char *delim);
 //
 //			| -> Destroy the array
 //
-void 		DestructArray(Array *a);
+void 		DestructArray(Array *a, int elements, int arr);
 
 void ConstructArrayMethods(Array *a);
