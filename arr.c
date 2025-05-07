@@ -56,7 +56,7 @@ int ArrClear(Array *a) {
 
 int IsCharInArray(Array *a, void *sub) {
 	for(int i = 0; i < a->idx; i++)
-		if(!strcmp(a->arr[i], sub))
+		if(!strcmp(a->arr[i], (char *)sub))
 			return i;
 
 	return -1;
